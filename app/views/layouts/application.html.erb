@@ -6,9 +6,16 @@
 
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+    <%= stylesheet_link_tag "https://code.getmdl.io/1.2.1/material.light_green-yellow.min.css"%>
   </head>
 
   <body>
+  <% if notice %>
+  	<p class="alert alert-success"><%= notice %></p>
+  <% end %>
+  <% if alert %>
+  	<p class="alert alert-danger"><%= alert %></p>
+  <% end %>
     <%= yield %>
   </body>
 </html>
