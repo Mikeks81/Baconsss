@@ -6,8 +6,9 @@
 
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
-    <%= stylesheet_link_tag "https://code.getmdl.io/1.2.1/material.blue_grey-purple.min.css"%>
+    <%= stylesheet_link_tag "https://code.getmdl.io/1.2.1/material.blue_grey-red.min.css"%>
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <%= javascript_include_tag "https://code.getmdl.io/1.2.1/material.min.js"%>
   </head>
 
   <body>
@@ -22,7 +23,7 @@
 	      <div class="mdl-layout-spacer"></div>
 	      <!-- Navigation. We hide it in small screens. -->
 	      <nav class="mdl-navigation mdl-layout--large-screen-only">
-	        <%= link_to "LogOut", destroy_user_session_path, method: :delete %>
+	        <%= link_to "LogOut", destroy_user_session_path, method: :delete if current_user %>
 	      </nav>
 	    </div>
 	  </header>
@@ -50,6 +51,5 @@
     	</div>
       </main>
 	</div>
-	<%= javascript_include_tag "https://code.getmdl.io/1.2.1/material.min.js"%>
   </body>
 </html>
