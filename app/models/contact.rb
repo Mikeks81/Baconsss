@@ -1,13 +1,11 @@
 class Contact < ApplicationRecord
-
-	has_many :phones, dependent: :destroy
-	accepts_nested_attributes_for :phones, allow_destroy: true
-
 	belongs_to :user
+	has_many :phones, dependent: :destroy, inverse_of: :contact
+	accepts_nested_attributes_for :phones,
+	 															allow_destroy: true,
+	 															reject_if: proc() { |attrs| attrs['phone_number'].blank?} 
 
-	# def phones_attributes=(phones_attributes)
- #   		phones_attributes.each do |phone_attributes|
- #   			self.phones.build(phone_attributes)
- #   		end
- #   end	
+	validates_presence_of :first_name
+	validates_presence_of :phones
+
 end
