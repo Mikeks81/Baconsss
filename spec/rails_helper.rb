@@ -68,6 +68,18 @@ RSpec.configure do |config|
   config.after(:each) do 
     DatabaseCleaner.clean
   end
+
+ 
+  config.include Devise::Test::ControllerHelpers, type: :controller
+  config.include Devise::Test::ControllerHelpers, type: :view
+
+  [:controller, :view, :request].each do |type|
+    config.include ::Rails::Controller::Testing::TestProcess, :type => type
+    config.include ::Rails::Controller::Testing::TemplateAssertions, :type => type
+    config.include ::Rails::Controller::Testing::Integration, :type => type
+  end
+
+
   
   config.include FactoryGirl::Syntax::Methods
 
