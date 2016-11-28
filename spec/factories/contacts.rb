@@ -5,7 +5,7 @@ FactoryGirl.define do
 
     trait :with_phones do 
 	    after(:build) do |contact|
-	    	contact.phones << FactoryGirl.build(:phone)
+	    	contact.phones << FactoryGirl.create(:phone)
 	    end
 	end
 
