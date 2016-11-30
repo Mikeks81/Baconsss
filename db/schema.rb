@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161125045720) do
+ActiveRecord::Schema.define(version: 20161129002835) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -38,6 +38,26 @@ ActiveRecord::Schema.define(version: 20161125045720) do
     t.index ["user_id"], name: "index_phones_on_user_id", using: :btree
   end
 
+  create_table "profile_contact_joins", force: :cascade do |t|
+    t.integer  "profile_id"
+    t.integer  "contact_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["contact_id"], name: "index_profile_contact_joins_on_contact_id", using: :btree
+    t.index ["profile_id"], name: "index_profile_contact_joins_on_profile_id", using: :btree
+  end
+
+  create_table "profiles", force: :cascade do |t|
+    t.integer  "user_id"
+    t.integer  "text_user_interval"
+    t.integer  "response_time"
+    t.integer  "text_contact_time"
+    t.datetime "created_at",         null: false
+    t.datetime "updated_at",         null: false
+    t.boolean  "active"
+    t.index ["user_id"], name: "index_profiles_on_user_id", using: :btree
+  end
+
   create_table "users", force: :cascade do |t|
     t.string   "email",                  default: "", null: false
     t.string   "encrypted_password",     default: "", null: false
@@ -58,4 +78,7 @@ ActiveRecord::Schema.define(version: 20161125045720) do
   add_foreign_key "contacts", "users"
   add_foreign_key "phones", "contacts"
   add_foreign_key "phones", "users"
+  add_foreign_key "profile_contact_joins", "contacts"
+  add_foreign_key "profile_contact_joins", "profiles"
+  add_foreign_key "profiles", "users"
 end

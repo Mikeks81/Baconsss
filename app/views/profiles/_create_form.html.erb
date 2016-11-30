@@ -1,0 +1,18 @@
+<%= form_for([user,profile]) do |f| %>
+	<div class="field mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+		<%= f.text_field :text_user_interval, class: "mdl-textfield__input", id: :text_user_interval  %>
+		<%= f.label :text_me_in_hours, class: "mdl-textfield__label", for: :text_user_interval  %>
+	</div>
+	<br>
+	<div class="field mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+		<%= f.text_field :response_time, class: "mdl-textfield__input", id: :response_time %>
+		<%= f.label :how_long_without_response_before_alert_contacts, class: "mdl-textfield__label", for: :response_time %>
+	</div>
+	<%= f.fields_for :profile_contact_joins, profile_contact_joins do |joins_f| %>
+		<div class="mdl-selectfield mdl-js-selectfield mdl-selectfield--floating-label">
+			<%=	joins_f.select :contact_id, user.contacts.collect { |c| [ c.first_name, c.id ] }, include_blank: true, class: "mdl-selectfield__select", id: :select_contact_id %>
+			<%= joins_f.label :add_contact, class: "mdl-selectfield__label", for: :select_contact_id %>
+		</div>
+	<% end %>
+	<%= f.submit :add_profile, class: "mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored" %>
+<% end %>
