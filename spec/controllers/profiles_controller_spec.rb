@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.describe ProfilesController, type: :controller do
 	let(:user) {create(:user, :with_contacts)}
 	let(:contact) {create(:contact, :with_phones, user: user)}
-  	let(:profile) {create(:profile, user: user, contacts:[contact])}
+  	let(:profile) {create(:profile, user: user)}
   	before do 
   		sign_in user
   	end

@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.describe Profile, type: :model do
 	let(:user) {create(:user, :with_contacts)}
 	let(:contact) {create(:contact, :with_phones, user: user)}
-  let(:profile) {create(:profile, user: user, contacts:[contact])}
+  let(:profile) {create(:profile, :with_contacts_join, user: user)}
 
   describe 'Profile Associations' do
   	it 'belongs to a user' do 

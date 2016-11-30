@@ -4,6 +4,7 @@ class UsersController < ApplicationController
 
   def show
     phones
+    profile_contact_joins
   end
 
   def edit
@@ -43,6 +44,16 @@ class UsersController < ApplicationController
   helper_method :phones
   def phones
     @phones ||= contact.phones.build
+  end
+
+  helper_method :profile
+  def profile
+    @profile ||= user.profiles.build
+  end
+
+  helper_method :profile_contact_joins
+  def profile_contact_joins
+    @profile_contact_joins ||= profile.profile_contact_joins.build
   end
 
   def user_params

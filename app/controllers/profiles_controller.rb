@@ -1,7 +1,7 @@
 class ProfilesController < ApplicationController
 
 	def create
-		if profile.update_attributes(profile_params)
+		if profile.update_attributes!(profile_params)
 			flash[:notice] = "Successfully created a profile"
 			redirect_to user_path user
 		end
@@ -34,7 +34,8 @@ class ProfilesController < ApplicationController
 	end
 
 	def profile_params
-		params.require(:profile).permit(:text_user_interval, :response_time,:text_contact_time, :active)
+		params.require(:profile).permit(:text_user_interval, :response_time,:text_contact_time, :active,
+						:profile_contact_joins_attributes => [:id, :contact_id, :profile_id])
 	end
 
 end

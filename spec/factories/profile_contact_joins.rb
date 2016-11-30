@@ -1,6 +1,6 @@
 FactoryGirl.define do
   factory :profile_contact_join do
-    profile nil
-    contact nil
+    profile
+    contact
   end
 end
