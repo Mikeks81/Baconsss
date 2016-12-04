@@ -1,0 +1,43 @@
+<%= form_for [user,contact], html: {class: "col s12"} do |f| %>
+  <div class="input-field col s12">
+    <%= f.text_field :first_name, class: "", id: :contact_first_name %>
+    <%= f.label :first_name, class: "", for: :contact_first_name  %>
+  </div>
+  <br>
+  <div class="input-field col s12">
+    <%= f.text_field :last_name, class: "mdl-textfield__input", id: :contact_last_name %>
+    <%= f.label :last_name, class: "", for: :contact_last_name %>
+  </div>
+  <br>
+  <div class="input-field col s12">
+    <%= f.email_field :email, class: "", id: :contact_email %>
+    <%= f.label :email, class: "", for: :contact_email %>
+  </div>
+  <br>
+  <div class="input-field col s12">
+    <%= f.text_field :nickname, class: "", id: :contact_nickname %>
+    <%= f.label :nickname, class: "", for: :contact_nickname %>
+  </div>
+ 	<br>
+ 	<div class="input-field col s12">
+    <%= f.text_field :relationship, class: "", id: :contact_relationship %>
+    <%= f.label :relationship, class: "", for: :contact_relationship %>
+  </div>
+	<%= f.fields_for :phones do |phones_f| %>
+		<br>
+ 		<div class="input-field col s12">
+			<%= phones_f.text_field :phone_type, class: "", id: :contact_phone_type %>
+			<%= phones_f.label :phone_type, class: "", for: :contact_phone_type %>
+		</div>
+		<br>
+		<div class="input-field col s12">
+			<%= phones_f.text_field :phone_number, class: "", id: :contact_phone_type %>
+			<%= phones_f.label :phone_number, class: "", for: :contact_phone_type %>
+		</div>
+	<% end %>  
+
+  <div class="actions">
+    <%= f.submit "Add Contact", class: "waves-effect waves-light btn" %>
+  </div>
+
+<% end %>

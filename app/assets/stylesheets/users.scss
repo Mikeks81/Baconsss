@@ -6,6 +6,10 @@
    display: flex;
    -webkit-flex-direction: row; 
    flex-direction: row;
-   -webkit-justify-content: center;
-   justify-content: center;
+   -webkit-justify-content: space-around;
+   justify-content: space-around;
+}
+
+#contacts-row, #profiles-row {
+	// width: 49%;
 }
