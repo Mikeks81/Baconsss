@@ -9,5 +9,7 @@ class User < ApplicationRecord
    has_many :phones, dependent: :destroy
    accepts_nested_attributes_for :phones, allow_destroy: true
 
-   validates_presence_of :email
+   has_many :profiles, dependent: :destroy
+
+   validates :email, presence: true, uniqueness: true
 end

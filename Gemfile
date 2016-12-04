@@ -34,6 +34,19 @@ gem 'devise'
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platform: :mri
+  gem 'rspec-rails'
+  gem 'factory_girl_rails'
+  gem 'guard-rspec'
+  gem 'spring-commands-rspec'
+  gem 'rails-controller-testing'
+end
+
+group :test do 
+	gem 'faker'
+	gem 'capybara'
+	gem 'database_cleaner'
+	gem 'launchy'
+	gem 'selenium-webdriver'
 end
 
 group :development do

@@ -5,5 +5,6 @@ Rails.application.routes.draw do
   resources :users do
 	  resources :contacts
 	  resources :phones
+	  resources :profiles
 	end
 end

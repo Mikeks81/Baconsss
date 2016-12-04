@@ -1,4 +1,5 @@
 class ContactsController < ApplicationController
+  
   def create
   	if contact.update_attributes!(contact_params)
   		flash[:notice] = "Contact successfully created"
@@ -7,9 +8,17 @@ class ContactsController < ApplicationController
   end
 
   def update
+  	if contact.update_attributes(contact_params)
+  		flash[:notice] = "Succesfully updated contact"
+  		redirect_to user_path user
+  	end
   end
 
   def destroy
+  	if contact.destroy
+  		flash[:notice] = "Successfully deleted contact"
+  		redirect_to user_path user
+  	end
   end
 
   private

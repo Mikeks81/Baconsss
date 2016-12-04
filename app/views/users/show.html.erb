@@ -1,26 +1,62 @@
 <div class="" id="user-name-title">
 	<h2><%= user.email%></h2>
 </div>
+<div id="show-container">
+	
+	<div id="contacts-row" class="row">
+		<div id="contacts-box" class="col s12">
+			<h3>Add Contacts</h3>
+			<%= render 'contacts/form' %>
 
-<div class="" id="add-contact">
-	<h3>Add Contacts</h3>
-	<%= render 'contacts/create_contact_form' %>
-</div>
-
-<div class="" id="user-contacts">
-	<h3> Contacts </h3>
-	<p>
-		<% user.contacts.each do |contact| %>
-		<p>
-			<%= contact.first_name %> <%= contact.last_name%>
-			<%= contact.nickname %>
-			<%= contact.relationship %>
-			<%= contact.email %>
-			<% contact.phones.each do |phone| %>
-				<%= phone.phone_type %>
-				<%= phone.phone_number %>
-			<% end %>	
-		</p>
-		<% end %>
-	</p>
+			<div class="" id="user-contacts">
+				<h3> Contacts </h3>
+				<p>
+					<% user.contacts.each do |contact| %>
+					<div class="card horizontal">
+			      <div class="card-image">
+			        <img src="">
+			      </div>
+			      <div class="card-stacked">
+							<%= contact.first_name %> <%= contact.last_name%>
+							<%= contact.nickname %>
+							<%= contact.relationship %>
+							<%= contact.email %>
+							<% contact.phones.each do |phone| %>
+								<%= phone.phone_type %>
+								<%= phone.phone_number %>
+							<% end %>	
+						</div>
+					</div>
+					<% end %>
+			</div>
+		</div>
+	</div>
+	
+	<div id="profiles-row" class="row">
+		<div id="profile-box" class="col s12">
+			<div class="" id="add-profile">
+				<h3>Add Profile</h3>
+				<%= render 'profiles/form' %>
+			</div>
+			<div class="" id="user-profiles">
+				<h3> Profiles </h3>
+				<div>
+					<% user.profiles.each do |profile| %>
+					<div class="card horizontal">
+			      <div class="card-image">
+			        <img src="">
+			      </div>
+			      <div class="card-stacked">
+			        <%= profile.text_user_interval %>
+							<%= profile.response_time %>
+								<% profile.contacts.each do |contact| %>
+									<%= contact.first_name %>
+								<% end %>
+						</div>
+					</div>
+					<%end%>
+				</div>
+			</div>
+		</div>
+	</div>
 </div>
