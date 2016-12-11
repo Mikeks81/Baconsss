@@ -4,12 +4,16 @@ class UsersController < ApplicationController
   end
 
   def show
-    phones
-    profile_contact_joins
+    @contact = user.contacts.build
+    @contacts = user.contacts
+    @contact_phone = @contact.phones.build
+    @user_phone = user.phones.build
+    @user_profile = user.profiles.build 
+    @profile_contact_joins = @user_profile.profile_contact_joins.build
   end
 
   def edit
-    user_phone
+    @user_phone = user.phones.empty? ? user.phones.build : user.phones
   end
 
   def update
@@ -32,37 +36,8 @@ class UsersController < ApplicationController
     @user ||= current_user
   end
 
-  helper_method :contact
-  def contact
-    @contact ||= user.contacts.build
-  end
-
-  helper_method :contacts
-  def contacts
-    @contacts ||= current_user.contacts
-  end
-
-  helper_method :user_phone
-  def user_phone
-    @user_phone ||= user.build_phone
-  end
-
-  helper_method :phones
-  def phones
-    @phones ||= contact.phones.build
-  end
-
-  helper_method :profile
-  def profile
-    @profile ||= user.profiles.build
-  end
-
-  helper_method :profile_contact_joins
-  def profile_contact_joins
-    @profile_contact_joins ||= profile.profile_contact_joins.build
-  end
 
   def user_params
-    params.require(:user).permit(:email, :password, :password_confirmation, :first_name, :last_name, :phone_attributes => [:id, :phone_type, :phone_number])
+    params.require(:user).permit(:email, :password, :password_confirmation, :first_name, :last_name, :phones_attributes => [:id, :phone_type, :phone_number])
   end
 end

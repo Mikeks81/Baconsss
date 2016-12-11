@@ -14,7 +14,7 @@
     <%= f.label :email, class: "", for: :contact_email %>
   </div>
   <br>
-	<%= f.fields_for :phone do |phones_f| %>
+	<%= f.fields_for :phones, @user_phone do |phones_f| %>
 		<br>
  		<div class="input-field col s12">
 			<%= phones_f.text_field :phone_type, class: "", id: :contact_phone_type %>

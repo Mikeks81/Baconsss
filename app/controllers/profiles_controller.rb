@@ -1,10 +1,14 @@
 class ProfilesController < ApplicationController
 
 	def create
-		if profile.update_attributes!(profile_params)
+		if profile.update_attributes(profile_params)
 			flash[:notice] = "Successfully created a profile"
 			redirect_to user_path user
 		end
+	end
+
+	def edit
+		@profile_contact_joins = profile.profile_contact_joins
 	end
 
 	def update
