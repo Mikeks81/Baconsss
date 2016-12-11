@@ -1,4 +1,5 @@
 class UsersController < ApplicationController
+
   def index
   end
 
@@ -8,10 +9,11 @@ class UsersController < ApplicationController
   end
 
   def edit
+    user_phone
   end
 
   def update
-    if user.update_attributes(user_params)
+    if user.update_attributes!(user_params)
       flash[:notice] = "User Sucessfully Updated"
       redirect_to user_path user
     end
@@ -41,6 +43,11 @@ class UsersController < ApplicationController
     @contacts ||= current_user.contacts
   end
 
+  helper_method :user_phone
+  def user_phone
+    @user_phone ||= user.build_phone
+  end
+
   helper_method :phones
   def phones
     @phones ||= contact.phones.build
@@ -57,6 +64,6 @@ class UsersController < ApplicationController
   end
 
   def user_params
-    params.require(:user).permit(:email, :password, :password_confirmation)
+    params.require(:user).permit(:email, :password, :password_confirmation, :first_name, :last_name, :phone_attributes => [:id, :phone_type, :phone_number])
   end
 end
