@@ -13,7 +13,7 @@ class UsersController < ApplicationController
   end
 
   def update
-    if user.update_attributes!(user_params)
+    if user.update_attributes(user_params)
       flash[:notice] = "User Sucessfully Updated"
       redirect_to user_path user
     end
@@ -27,7 +27,6 @@ class UsersController < ApplicationController
   end
 
   private
-
   helper_method :user
   def user
     @user ||= current_user
