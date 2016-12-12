@@ -13,4 +13,8 @@ class User < ApplicationRecord
    has_many :profiles, dependent: :destroy
 
    validates :email, presence: true, uniqueness: true
+
+   def notifications_active
+    self.active ? "Notifications Active (click to turn off)" : "Activate Notifications"
+  	end
 end

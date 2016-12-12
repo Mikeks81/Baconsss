@@ -36,7 +36,6 @@ class UsersController < ApplicationController
     @user ||= current_user
   end
 
-
   def user_params
     params.require(:user).permit(:email, :password, :password_confirmation, :first_name, :last_name, :phones_attributes => [:id, :phone_type, :phone_number])
   end

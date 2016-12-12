@@ -4,6 +4,9 @@ class ProfilesController < ApplicationController
 		if profile.update_attributes(profile_params)
 			flash[:notice] = "Successfully created a profile"
 			redirect_to user_path user
+		else
+			flash[:alert] = profile.errors.full_messages.first
+			redirect_to user_path user
 		end
 	end
 
@@ -12,7 +15,7 @@ class ProfilesController < ApplicationController
 	end
 
 	def update
-		if profile.update_attributes(profile_params)
+		if profile.update_attributes!(profile_params)
 			flash[:notice] = "Successfully updated profile"
 			redirect_to user_path user
 		end

@@ -10,6 +10,6 @@ Rails.application.routes.draw do
 	  resources :contacts
 	  resources :phones
 	  resources :profiles
-    resources :twilios, only: [:create, :update, :destroy]
+    resources :twilios, only: [:index, :create, :update, :destroy]
 	end
 end

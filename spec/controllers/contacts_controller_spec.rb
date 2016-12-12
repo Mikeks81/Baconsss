@@ -13,7 +13,6 @@ RSpec.describe ContactsController, type: :controller do
       post :create, params: {user_id: contact.user_id,
                              contact: attributes_for(:contact,
                              phones_attributes: {"0" => phones_attributes})}
-
       expect(response).to have_http_status(302)
     end
   end
