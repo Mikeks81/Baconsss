@@ -29,8 +29,9 @@ class ContactsController < ApplicationController
 
   helper_method :contact
   def contact 
-  	@contact ||= Contact.where(id: params[:id]).first || user.contacts.build
+  	@contact ||= user.contacts.where(id: params[:id]).first || user.contacts.build
   end
+  
   helper_method :phones
   def phones
   	@phones ||= contact.phones.build

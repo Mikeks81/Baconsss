@@ -1,32 +1,36 @@
 <div class="" id="user-name-title">
-	<h2><%= user.email%></h2>
+	<h3><%= user.email %></h3>
+	<%= link_to user.notifications_active, user_twilios_path(user), {method: 'post', class: "waves-effect waves-light btn"} %>
 </div>
 <div id="show-container">
-	
 	<div id="contacts-row" class="row">
 		<div id="contacts-box" class="col s12">
 			<h3>Add Contacts</h3>
-			<%= render 'contacts/form' %>
+			<%= render 'contacts/form', contact: @contact %>
 
 			<div class="" id="user-contacts">
 				<h3> Contacts </h3>
 				<p>
-					<% user.contacts.each do |contact| %>
-					<div class="card horizontal">
-			      <div class="card-image">
-			        <img src="">
-			      </div>
-			      <div class="card-stacked">
-							<%= contact.first_name %> <%= contact.last_name%>
-							<%= contact.nickname %>
-							<%= contact.relationship %>
-							<%= contact.email %>
-							<% contact.phones.each do |phone| %>
-								<%= phone.phone_type %>
-								<%= phone.phone_number %>
-							<% end %>	
-						</div>
-					</div>
+					<% user.contacts.each do |user_contact| %>
+						<% if user_contact.id %>
+							<div class="card horizontal">
+					      <div class="card-image">
+					        <img src="">
+					      </div>
+					      <div class="card-stacked">
+									<p><%= user_contact.first_name %> <%= user_contact.last_name%></p>
+									<p><%= user_contact.nickname %></p>
+									<p><%= user_contact.relationship %></p>
+									<p><%= user_contact.email %></p>
+									<% user_contact.phones.each do |phone| %>
+										<p><%= phone.phone_type %></p>
+										<p><%= phone.phone_number %></p>
+									<% end %>	
+									<p><%= link_to 'Edit', edit_user_contact_path(user,user_contact) %></p>
+									<p><%= link_to 'Delete', user_contact_path(user,user_contact), method: :delete %></p>
+								</div>
+							</div>
+						<% end %>
 					<% end %>
 			</div>
 		</div>
@@ -36,24 +40,34 @@
 		<div id="profile-box" class="col s12">
 			<div class="" id="add-profile">
 				<h3>Add Profile</h3>
-				<%= render 'profiles/form' %>
+				<%= render 'profiles/form', profile: @user_profile, profile_contact_joins: @profile_contact_joins  %>
 			</div>
 			<div class="" id="user-profiles">
 				<h3> Profiles </h3>
 				<div>
 					<% user.profiles.each do |profile| %>
-					<div class="card horizontal">
-			      <div class="card-image">
-			        <img src="">
-			      </div>
-			      <div class="card-stacked">
-			        <%= profile.text_user_interval %>
-							<%= profile.response_time %>
-								<% profile.contacts.each do |contact| %>
-									<%= contact.first_name %>
-								<% end %>
-						</div>
-					</div>
+						<% if profile.id %>
+							<div class="card horizontal">
+					      <div class="card-image">
+					        <img src="">
+					      </div>
+					      <div class="card-stacked">
+					      <h5><%= profile.active ? "Active" : "Inactive" %></h5>
+					        <p>We will text you every <%= profile.text_user_interval %> hour</p>
+									<p>If you don't respond in <%= profile.response_time %> hour your contacts will be notified. </p>
+									<p> Contact assigned to this profile: </p>
+										<% profile.contacts.each do |contact| %>
+											<p>Name: <%= contact.first_name %></p>
+											<p>Phone: <%= contact.phones.first.phone_number %></p>
+										<% end %>
+									<% if !profile.active %>
+										<p><%= link_to 'Make Active', user_profile_path(user,profile, {profile: {active: true}}), method: :patch %></p>
+									<% end %>
+									<p><%= link_to 'Edit', edit_user_profile_path(user,profile) %></p>
+									<p><%= link_to 'Delete', user_profile_path(user,profile), method: :delete %></p>
+								</div>
+							</div>
+						<% end %>
 					<%end%>
 				</div>
 			</div>

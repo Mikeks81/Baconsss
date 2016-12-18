@@ -13,15 +13,19 @@
 	  <nav>
 	    <div class="nav-wrapper">
 	      <a href="#" class="brand-logo right">Logo</a>
-	      <ul class="tabs tabs-transparent">
-	        <li class="tab"><a href="#test1">Test 1</a></li>
-	        <li class="tab"><a class="active" href="#test2">Test 2</a></li>
-	        <li class="tab disabled"><a href="#test3">Disabled Tab</a></li>
-	        <li class="tab"><a href="#test4">Test 4</a></li>
+	      <ul id="nav-mobile" class="left hide-on-med-and-down tabs tabs-transparent">
+	        <li class="tab"><a href="#test1">Home</a></li>
+	        <li class="tab">
+	        	<%= link_to "Self", current_user ? edit_user_path(current_user) : "#",{"target" => "_self"} %>
+	        </li>
+	        <li class="tab"><a href="#test3">Contacts</a></li>
+	        <li class="tab"><a href="#test4">Profiles</a></li>
       	</ul>
 	    </div>
 	  </nav>
-	
+		<% if current_user %>
+					<%= link_to "Log Out", destroy_user_session_path, {class: "right", method: "delete"} %>
+	      <% end %>
 	  <% if notice %>
 	  	<p class="alert alert-success"><%= notice %></p>
 	  <% end %>

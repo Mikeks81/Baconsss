@@ -3,7 +3,9 @@ require 'rails_helper'
 RSpec.describe ProfilesController, type: :controller do
 	let(:user) {create(:user, :with_contacts)}
 	let(:contact) {create(:contact, :with_phones, user: user)}
-  	let(:profile) {create(:profile, user: user)}
+  	let(:profile) {create(:profile, :with_contacts_join, user: user)}
+  	let(:profile_contact_join) {attributes_for(:profile_contact_join, contact_id: contact.id, profile_id: profile.id)}
+
   	before do 
   		sign_in user
   	end
@@ -12,12 +14,14 @@ RSpec.describe ProfilesController, type: :controller do
 		it 'increases Profile count by 1' do
 			expect {
 				post :create, params: {user_id: user,
-									   profile: attributes_for(:profile)}
+									   profile: attributes_for(:profile,
+									   profile_contact_joins:{"0" => profile_contact_join})}
 			}.to change(Profile, :count).by(1)
 		end
 		it 'has HTTP 302 redirect' do
 			post :create, params: {user_id: user,
-								   profile: attributes_for(:profile)}
+								   profile: attributes_for(:profile,
+								   profile_contact_joins:{"0" => profile_contact_join})}
 			expect(response).to have_http_status(302)
 		end
 	end
