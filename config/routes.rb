@@ -5,6 +5,8 @@ Rails.application.routes.draw do
   end
   root 'homes#index'
 
+  post 'twilios/user_response' => 'twilios#user_text_response'
+
   devise_for :users
   resources :users do
 	  resources :contacts

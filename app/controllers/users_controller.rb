@@ -8,7 +8,7 @@ class UsersController < ApplicationController
     @contacts = user.contacts
     @contact_phone = @contact.phones.build
     @user_phone = user.phones.build
-    @user_profile = user.profiles.build 
+    @user_profile = user.profiles.build
     @profile_contact_joins = @user_profile.profile_contact_joins.build
   end
 
@@ -19,6 +19,9 @@ class UsersController < ApplicationController
   def update
     if user.update_attributes(user_params)
       flash[:notice] = "User Sucessfully Updated"
+      redirect_to root_path
+    else
+      flash[:notice] = user.errors.full_messages.first
       redirect_to user_path user
     end
   end
