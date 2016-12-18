@@ -41,6 +41,8 @@ module Twilio_api
 
       puts "@@@@@@@@@@@@@@@@@@@@ USER @@@@@@@@@@@@@@@@@@@@@@@"
       puts user.inspect
+      puts sender_phone
+      puts sender_message
 
       user_profile = user.profiles.where(active: true).first
       #time is in hours
