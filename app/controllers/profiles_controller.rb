@@ -15,7 +15,8 @@ class ProfilesController < ApplicationController
 	end
 
 	def update
-		if profile.update_attributes!(profile_params)
+		Profile.replace_active(user) if params[:profile][:active]
+		if profile.update_attributes(profile_params)
 			flash[:notice] = "Successfully updated profile"
 			redirect_to user_path user
 		end
@@ -41,7 +42,7 @@ class ProfilesController < ApplicationController
 	end
 
 	def profile_params
-		params.require(:profile).permit(:text_user_interval, :response_time,:text_contact_time, :active,
+		params.require(:profile).permit(:name, :text_user_interval, :response_time,:text_contact_time, :active,
 						:profile_contact_joins_attributes => [:id, :contact_id, :profile_id])
 	end
 
