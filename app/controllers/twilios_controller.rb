@@ -1,4 +1,5 @@
 class TwiliosController < ApplicationController
+  before_action :authenticate_user!, except: [:user_text_response]
   skip_before_action :verify_authenticity_token, only: [:user_text_response]
   include Twilio_api
   require 'twilio-ruby'
@@ -25,7 +26,7 @@ class TwiliosController < ApplicationController
     puts params.inspect
     Twilio_api.process_response(params)
 
-    redirect_to root_path
+    render json: {status: :ok}
   end
 
   helper_method :user

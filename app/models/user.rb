@@ -25,10 +25,9 @@ class User < ApplicationRecord
     #need to filter if there is a 1 in front of an area code. right now it thinking a nubmer with a 1 infront of it is a different number .. ex.. 19174704721 != 9174704721.. but it should be recognized as such.
     user_phone = self.phones.first.phone_number
     exisitng_record = Phone.where(phone_number: user_phone, contact_id: nil)
-
     if user_phone.nil?
       errors.add :base,"User must have a phone number"
-    elsif exisitng_record.exists?
+    elsif exisitng_record.exists? && self.id != exisitng_record.first.user.id
       errors.add :base, "Phone number already exists"
     end
    end
