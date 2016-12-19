@@ -1,5 +1,9 @@
 <%= form_for [user,profile], html: {class: "col s12"} do |f| %>
 	<div class="input-field col s12">
+		<%= f.text_field :name, class: "", id: :profile_name  %>
+		<%= f.label :name, class: "", for: :profile_name  %>
+	</div>
+	<div class="input-field col s12">
 		<%= f.text_field :text_user_interval, class: "", id: :text_user_interval  %>
 		<%= f.label :text_me_in_hours, class: "", for: :text_user_interval  %>
 	</div>
