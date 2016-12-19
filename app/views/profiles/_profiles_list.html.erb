@@ -1,0 +1,25 @@
+<% user.profiles.each do |profile| %>
+  <% if profile.id %>
+    <div class="card horizontal">
+      <div class="card-image">
+        <img src="">
+      </div>
+      <div class="card-stacked">
+      <h5><%= profile.active ? "Active" : "Inactive" %></h5>
+        <p>Name: <%= profile.name %></p>
+        <p>We will text you every: <%= profile.text_user_interval %> hour</p>
+        <p>If you don't respond in: <%= profile.response_time %> hour your contacts will be notified. </p>
+        <p> Contact assigned to this profile: </p>
+          <% profile.contacts.each do |contact| %>
+            <p>Name: <%= contact.first_name %></p>
+            <p>Phone: <%= contact.phones.first.phone_number %></p>
+          <% end %>
+        <% if !profile.active %>
+          <p><%= link_to 'Make Active', user_profile_path(user,profile, {profile: {active: true}}), method: :patch %></p>
+        <% end %>
+        <p><%= link_to 'Edit', edit_user_profile_path(user,profile) %></p>
+        <p><%= link_to 'Delete', user_profile_path(user,profile), method: :delete %></p>
+      </div>
+    </div>
+  <% end %>
+<%end%>
