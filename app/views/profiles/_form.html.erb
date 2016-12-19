@@ -14,7 +14,7 @@
 	</div>
 	<%= f.fields_for :profile_contact_joins, profile_contact_joins do |joins_f| %>
 		<div class="input-field col s12">
-			<%=	joins_f.select :contact_id, user.contacts.collect { |c| [ c.first_name, c.id ] }, include_blank: true, class: "icons", id: :select_contact_id %>
+			<%=	joins_f.select :contact_id, user.contacts.where.not(id: nil).collect { |c| [ c.first_name, c.id ]}, include_blank: true, class: "icons", id: :select_contact_id %>
 			<%= joins_f.label :add_contact, class: "", for: :select_contact_id %>
 		</div>
 	<% end %>
