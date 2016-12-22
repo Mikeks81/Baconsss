@@ -6,11 +6,11 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :trackable, :validatable
 
    has_many :contacts, dependent: :destroy
+   has_many :profiles, dependent: :destroy
+   has_many :messages, dependent: :destroy
 
    has_many :phones, dependent: :destroy, inverse_of: :user
    accepts_nested_attributes_for :phones, allow_destroy: true
-
-   has_many :profiles, dependent: :destroy
 
    validates :email, presence: true, uniqueness: true
    validate :has_phone_and_uniqe
