@@ -20,7 +20,15 @@ class User < ApplicationRecord
     end
 
     def is_active?
-        current_user.active
+        active
+    end
+
+    def last_outgoing_message
+        messages.where(transmission: 'outgoing').order('created_at DESC').first
+    end
+
+    def last_incoming_message
+        messages.where(transmission: 'incoming').order('created_at DESC').first
     end
 
     private

@@ -12,9 +12,9 @@ module Twilio_api
         to = user.phones.first.phone_number
         body = 'Starting notifications'
         transmission = 'outgoing'
-        message_info = Twilio_api.populate_message_info(to, body, message_info, user)
+        message_info = Twilio_api.populate_message_info(to, body, transmission, user)
 
-        # message_is_sent = Twilio_api.send_message(message_info['to'], message_info['body'])
+        message_is_sent = Twilio_api.send_message(message_info['to'], message_info['body'], user)
 
         message_is_sent = true
 
@@ -27,16 +27,20 @@ module Twilio_api
         end
     end
 
-    def self.send_message(to, message_body)
-        puts '@@@@@@@@ SENDING NOTIFICATION @@@@@@@@@'
-        @client = Twilio::REST::Client.new @@account_sid, @@auth_token
-        @client.account.messages.create(from: @@twilio_phone,
-                                        to: to,
-                                        body: message_body)
-        return true
-    rescue Twilio::REST::RequestError => e
-        puts e.message
-        return false
+    def self.send_message(to, message_body, user)
+        if user.is_active?
+            begin
+                puts '@@@@@@@@ SENDING NOTIFICATION @@@@@@@@@'
+                @client = Twilio::REST::Client.new @@account_sid, @@auth_token
+                @client.account.messages.create(from: @@twilio_phone,
+                                                to: to,
+                                                body: message_body)
+                return true
+            rescue Twilio::REST::RequestError => e
+                puts e.message
+                return false
+            end
+        end
     end
 
     def self.populate_message_info(to, body, transmission, user)
@@ -50,27 +54,35 @@ module Twilio_api
         message_info
     end
 
-    def self.start_interval(user, settings)
+    def self.start_interval(user, _settings)
         puts '@@@@@@@@ STARTING INTERVAL @@@@@@@@@'
         interval = settings['text_user_interval']
-        # interval = 0.02
+        respond_in_time = settings["response_time"]
+        # interval = Twilio_api.hours_to_seconds(0.15)
 
-        puts '@@@@@@@@ WHILE LOOP @@@@@@@@@'
-        while User.is_active?
-            sleep Twilio_api.hours_to_seconds(interval)
-            time_now = Time.new
+        ## current issues, timer is off or logic to trigger message is off.. but usually takes about 30mins to send off message
+        ## -- thinking about using a field in user table to count how many messages are sent while user is active. if count = 0 then send starting message (require user to respond in order to start messaging.) if 1 then send repond in an hour message
+        puts "@@@@@@@@ WHILE LOOP #{interval} @@@@@@@@@"
+        Thread.new do
+            puts '%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%'
+            while user.is_active?
+                sleep interval
+                # sleep Twilio_api.hours_to_seconds(interval)
+                time_now = Time.new
 
-            last_outgoing = user.messages.where(transmission: 'outgoing').order('created_at DESC').first
-            last_outgoing = last_outgoing.created_at unless last_outgoing.nil?
+                last_outgoing = user.last_outgoing_message
+                last_outgoing = last_outgoing.created_at unless last_outgoing.nil?
 
-            outgoing_diff = Twilio_api.dt_diff(time_now, last_outgoing, 'h')
+                outgoing_diff = Twilio_api.dt_diff(time_now, last_outgoing, 'h')
 
-            last_response = user.messages.where(transmission: 'incoming').order('created_at DESC').first
-            last_response = last_response.created_at unless last_response.nil?
+                last_response = user.last_incoming_message
+                last_response = last_response.created_at unless last_response.nil?
 
-            incoming_diff = Twilio_api.dt_diff(time_now, last_response, 'h')
+                incoming_diff = Twilio_api.dt_diff(time_now, last_response, 'h')
 
-            if outgoing_diff >= interval && incoming_diff >= interval
+                next unless outgoing_diff >= interval && incoming_diff >= interval
+                puts '$$$$$$$$$$$$$$$$$$$$$$$$$$$'
+                puts 'sending contacts a message'
                 Twilio_api.send_msg_to_user_contacts(user)
                 break
             end
@@ -78,7 +90,7 @@ module Twilio_api
     end
 
     def self.hours_to_seconds(hr)
-        hr * 60
+        (hr * 60).to_i
     end
 
     def self.dt_diff(time_1, time_2, format)
@@ -88,16 +100,17 @@ module Twilio_api
     end
 
     def self.process_response(params)
+        to = @@twilio_phone
         # gsub removes all non numberic characters
-        sender_phone = params['From'].gsub!(/\D/, '')
-        sender_message = params['Body']
+        from = params['From'].gsub!(/\D/, '')
+        body = params['Body']
+        transmission = 'incoming'
 
-        user = Phone.where(phone_number: sender_phone, contact_id: nil).first.user
+        user = Phone.where(phone_number: from, contact_id: nil).first.user
 
-        puts "@@@@@@@@@@@@@@@@@@@@ #{user} @@@@@@@@@@@@@@@@@@@@@@@"
-        puts user.inspect
-        puts sender_phone
-        puts sender_message
+        set_user = user.id
+        message = Twilio_api.populate_message_info(to, from, body, transmission, user)
+        Messsage.create(message)
 
         settings = Twilio_api.get_active_profile_settings(user)
     end
@@ -119,17 +132,17 @@ module Twilio_api
 
     def self.send_msg_to_user_contacts(user)
         puts '@@@@@@@@@@@@ SENDING CONTACTS METHOD @@@@@@@@@'
-        if user.active?
+        if user.is_active?
             body = "Alert from Beacon. #{user.first_name} #{user.last_name} has been non responsive and asked that you are alerted that #{user.first_name} could be in trouble."
 
-            transmission = 'alert - outgoing to contact'
+            transmission = 'alert'
 
             settings = Twilio_api.get_active_profile_settings(user)
             settings['contacts_phone'].each do |phone_number|
                 to = phone_number
                 puts "@@@@@@@@@@@@ SENDING CONTACTS #{to} @@@@@@@@@"
                 # senidng message and checking is successful. if successful then log that message into db.
-                message_is_sent = Twilio_api.send_message(to, body)
+                message_is_sent = Twilio_api.send_message(to, body,user)
                 if message_is_sent
                     message = Twilio_api.populate_message_info(to, body, transmission, user)
                     Message.create(message)
