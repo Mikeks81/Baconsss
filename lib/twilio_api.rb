@@ -54,15 +54,15 @@ module Twilio_api
         message_info
     end
 
-    def self.start_interval(user, _settings)
+    def self.start_interval(user,settings)
         puts '@@@@@@@@ STARTING INTERVAL @@@@@@@@@'
-        interval = settings['text_user_interval']
+        interval = Twilio_api.hours_to_seconds(settings['text_user_interval'])
         respond_in_time = settings["response_time"]
         # interval = Twilio_api.hours_to_seconds(0.15)
 
         ## current issues, timer is off or logic to trigger message is off.. but usually takes about 30mins to send off message
         ## -- thinking about using a field in user table to count how many messages are sent while user is active. if count = 0 then send starting message (require user to respond in order to start messaging.) if 1 then send repond in an hour message
-        puts "@@@@@@@@ WHILE LOOP #{interval} @@@@@@@@@"
+        puts "@@@@@@@@ NEW THREAD LOOP #{interval} @@@@@@@@@"
         Thread.new do
             puts '%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%'
             while user.is_active?
@@ -80,21 +80,26 @@ module Twilio_api
 
                 incoming_diff = Twilio_api.dt_diff(time_now, last_response, 'h')
 
-                next unless outgoing_diff >= interval && incoming_diff >= interval
+                next unless (outgoing_diff >= interval && incoming_diff >= interval)
                 puts '$$$$$$$$$$$$$$$$$$$$$$$$$$$'
                 puts 'sending contacts a message'
                 Twilio_api.send_msg_to_user_contacts(user)
                 break
             end
+            puts "end of while loop !!!!!!!!!!!!!!!!!!!"
         end
     end
 
     def self.hours_to_seconds(hr)
+        # should reall be hr * 60 * 60 for hours
+        # right now i'm converting minutes to seconds
         (hr * 60).to_i
     end
 
     def self.dt_diff(time_1, time_2, format)
         # sec = "s", min = "m", hours = "h", days = "d"
+        # only works for hours won't work for 1.5 hours...
+        # need to make this to float
         diff = time_1.to_i - time_2.to_i
         (diff / 60) / 60 if format == 'h'
     end
