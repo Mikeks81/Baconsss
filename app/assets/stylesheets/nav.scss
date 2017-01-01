@@ -1,4 +1,11 @@
-nav ul {
-	height: 64px !important;
-    padding-top: 22px !important;
+.side-nav.fixed {
+	width: 250px;
+	margin-top: 65px;
+}
+.active {
+	background-color: steelblue !important;
+	color: white;
+}
+.active a {
+	color: white !important;
 }
