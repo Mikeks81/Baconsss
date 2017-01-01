@@ -1,6 +1,6 @@
 <% user.profiles.each do |profile| %>
   <% if profile.id %>
-    <div class="card horizontal">
+    <div class="card horizontal <%= 'active' if profile.active  %>">
       <div class="card-image">
         <img src="">
       </div>

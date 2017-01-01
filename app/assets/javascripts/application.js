@@ -15,9 +15,9 @@
 //= require turbolinks
 //= require_tree .
 
- $( document ).on('turbolinks:load', function() {
- 	// materialize side nav 
+$(document).on('turbolinks:load', function() {
+    // materialize side nav
     $(".button-collapse").sideNav();
     // materialize select drop down
     $('select').material_select();
-  });
+});
