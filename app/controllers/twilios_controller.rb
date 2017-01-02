@@ -6,6 +6,7 @@ class TwiliosController < ApplicationController
 
     def create
         if !user.active
+            user.update_attributes(active: true)
             user.start_messages
             redirect_to root_path
         else

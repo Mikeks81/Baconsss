@@ -1,4 +1,5 @@
 require 'twilio-ruby'
+require 'time_conversion'
 
 module Twilio_api
     @@account_sid = ENV['TWILIO_SID']
@@ -16,12 +17,9 @@ module Twilio_api
 
         message_is_sent = Twilio_api.send_message(message_info['to'], message_info['body'], user)
 
-        message_is_sent = true
-
         if message_is_sent
             puts '@@@@@@@@ SENT 1ST, LOGGING TO DB @@@@@@@@@'
             Message.create(message_info)
-            user.update_attributes(active: true)
             settings = Twilio_api.get_active_profile_settings(user)
             Twilio_api.start_interval(user, settings)
         end
@@ -54,54 +52,51 @@ module Twilio_api
         message_info
     end
 
-    def self.start_interval(user,settings)
+    def self.start_interval(user, settings)
         puts '@@@@@@@@ STARTING INTERVAL @@@@@@@@@'
-        interval = Twilio_api.hours_to_seconds(settings['text_user_interval'])
-        respond_in_time = settings["response_time"]
-        # interval = Twilio_api.hours_to_seconds(0.15)
+        interval = settings['text_user_interval']
+        respond_in_time = settings['response_time']
 
-        ## current issues, timer is off or logic to trigger message is off.. but usually takes about 30mins to send off message
-        ## -- thinking about using a field in user table to count how many messages are sent while user is active. if count = 0 then send starting message (require user to respond in order to start messaging.) if 1 then send repond in an hour message
-        puts "@@@@@@@@ NEW THREAD LOOP #{interval} @@@@@@@@@"
+        puts "@@@@@@@@ NEW THREAD LOOP #{interval} hours @@@@@@@@@"
         Thread.new do
             puts '%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%'
+            initial_text = true
             while user.is_active?
-                sleep interval
-                # sleep Twilio_api.hours_to_seconds(interval)
-                time_now = Time.new
+                sleep TimeConversion.hours_to_seconds(interval)
+                if !initial_text
+                    to = user.phones.first.phone_number
+                    body = "Are you ok? Respond in #{respond_in_time} hour(s)."
+                    transmission = 'outgoing'
 
-                last_outgoing = user.last_outgoing_message
-                last_outgoing = last_outgoing.created_at unless last_outgoing.nil?
+                    message_info = Twilio_api.populate_message_info(to, body, transmission, user)
 
-                outgoing_diff = Twilio_api.dt_diff(time_now, last_outgoing, 'h')
+                    message_is_sent = Twilio_api.send_message(to, message_body, user)
 
-                last_response = user.last_incoming_message
-                last_response = last_response.created_at unless last_response.nil?
+                    Message.create(message_info) if message_is_sent
+                    initial_text = false
 
-                incoming_diff = Twilio_api.dt_diff(time_now, last_response, 'h')
+                    sleep TimeConversion.hours_to_seconds(respond_in_time)
+                    time_now = Time.new
 
-                next unless (outgoing_diff >= interval && incoming_diff >= interval)
-                puts '$$$$$$$$$$$$$$$$$$$$$$$$$$$'
-                puts 'sending contacts a message'
-                Twilio_api.send_msg_to_user_contacts(user)
-                break
+                    # time of last response from the user to app twilio phone number
+                    last_response = user.last_incoming_message
+                    last_response = last_response.created_at unless last_response.nil?
+
+                    # diff of time from last msg sent by user to app and the time now
+                    incoming_diff = TimeConversion.dt_diff(time_now, last_response, 'h')
+
+                    if incoming_diff >= respond_in_time
+                        Twilio_api.send_msg_to_user_contacts(user)
+                        break
+                    else
+                        interval = settings['text_user_interval'] - settings['response_time']
+                    end
+                else
+                    initial_text = false
+                end
             end
-            puts "end of while loop !!!!!!!!!!!!!!!!!!!"
+            puts 'end of while loop !!!!!!!!!!!!!!!!!!!'
         end
-    end
-
-    def self.hours_to_seconds(hr)
-        # should reall be hr * 60 * 60 for hours
-        # right now i'm converting minutes to seconds
-        (hr * 60).to_i
-    end
-
-    def self.dt_diff(time_1, time_2, format)
-        # sec = "s", min = "m", hours = "h", days = "d"
-        # only works for hours won't work for 1.5 hours...
-        # need to make this to float
-        diff = time_1.to_i - time_2.to_i
-        (diff / 60) / 60 if format == 'h'
     end
 
     def self.process_response(params)
@@ -147,7 +142,7 @@ module Twilio_api
                 to = phone_number
                 puts "@@@@@@@@@@@@ SENDING CONTACTS #{to} @@@@@@@@@"
                 # senidng message and checking is successful. if successful then log that message into db.
-                message_is_sent = Twilio_api.send_message(to, body,user)
+                message_is_sent = Twilio_api.send_message(to, body, user)
                 if message_is_sent
                     message = Twilio_api.populate_message_info(to, body, transmission, user)
                     Message.create(message)

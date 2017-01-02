@@ -1,6 +1,6 @@
 <% user.profiles.each do |profile| %>
   <% if profile.id %>
-    <div class="card horizontal <%= 'active' if profile.active  %>">
+    <div class="card horizontal <%= 'active-profile' if profile.active  %>">
       <div class="card-image">
         <img src="">
       </div>
@@ -10,10 +10,13 @@
         <p>We will text you every: <%= profile.text_user_interval %> hour</p>
         <p>If you don't respond in: <%= profile.response_time %> hour your contacts will be notified. </p>
         <p> Contact assigned to this profile: </p>
+        <p>Contacts:
+          <% last_contact = profile.contacts.last %>
           <% profile.contacts.each do |contact| %>
-            <p>Name: <%= contact.first_name %></p>
-            <p>Phone: <%= contact.phones.first.phone_number %></p>
+             <%= link_to contact.first_name,edit_user_contact_path(user,contact) %>
+             <%= "," if contact != last_contact %>
           <% end %>
+        </p>
         <% if !profile.active %>
           <p><%= link_to 'Make Active', user_profile_path(user,profile, {profile: {active: true}}), method: :patch %></p>
         <% end %>
