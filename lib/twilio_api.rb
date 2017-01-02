@@ -70,7 +70,7 @@ module Twilio_api
 
                     message_info = Twilio_api.populate_message_info(to, body, transmission, user)
 
-                    message_is_sent = Twilio_api.send_message(to, message_body, user)
+                    message_is_sent = Twilio_api.send_message(to, body, user)
 
                     Message.create(message_info) if message_is_sent
                     initial_text = false
@@ -82,7 +82,6 @@ module Twilio_api
                     last_response = user.last_incoming_message
                     last_response = last_response.created_at unless last_response.nil?
 
-                    # diff of time from last msg sent by user to app and the time now
                     incoming_diff = TimeConversion.dt_diff(time_now, last_response, 'h')
 
                     if incoming_diff >= respond_in_time
