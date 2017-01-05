@@ -1,6 +1,7 @@
 .side-nav.fixed {
 	width: 400px;
 	margin-top: 65px;
+	background: #f7efef;
 }
 .active-profile {
 	background-color: steelblue !important;
@@ -22,7 +23,7 @@
 	right: 0;
 	top: 5px;
 }
-.card.horizontal p {
+.side-nav .card.horizontal p {
 	font-size: 13px;
 	margin: 0;
 }
