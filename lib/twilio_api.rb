@@ -53,13 +53,11 @@ module Twilio_api
     end
 
     def self.start_interval(user, settings)
-        puts '@@@@@@@@ STARTING INTERVAL @@@@@@@@@'
         interval = settings['text_user_interval']
         respond_in_time = settings['response_time']
 
         puts "@@@@@@@@ NEW THREAD LOOP #{interval} hours @@@@@@@@@"
         Thread.new do
-            puts '%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%'
             initial_text = true
             while user.is_active?
                 sleep TimeConversion.hours_to_seconds(interval)
