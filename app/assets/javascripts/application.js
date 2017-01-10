@@ -29,5 +29,6 @@ $(document).on('turbolinks:load', function() {
     // close modal
     $('.modal-head a').on('click', function(){
       $('.modal-container').hide();
+      $('body').removeClass('no-scroll');
     });
 });

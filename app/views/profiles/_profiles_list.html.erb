@@ -1,4 +1,4 @@
-<% user.profiles.each do |profile| %>
+<% user.profiles.order('active DESC').each do |profile| %>
   <% if profile.id %>
     <div class="card horizontal <%= 'active-profile' if profile.active  %>">
       <div class="card-image">
