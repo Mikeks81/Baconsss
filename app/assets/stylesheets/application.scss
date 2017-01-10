@@ -13,8 +13,39 @@
  *= require_tree .
  *= require_self
  */
-
+ body.no-scroll {
+     overflow: hidden;
+ }
+ 
 .container {
-  width: 70% !important;
-  margin-left: 417px !important;
+    width: 70% !important;
+    margin-left: 417px !important;
+}
+// ########### modal sytling ################
+
+.modal-container {
+    position: fixed;
+    display: none;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    background-color: rgba(2, 2, 2, .23);
+    z-index: 999998;
+
+    .modal-content {
+        position: relative;
+        top: 50%;
+        transform: translateY(-50%);
+        background-color: white;
+        width: 60%;
+        margin: 0 auto;
+        border-radius: 2px;
+        box-shadow: 0 0 10px 0.5px rgba(0, 0, 0, 0.43);
+        padding: 30px 60px 40px;
+
+        .modal-head a {
+            position: absolute;
+            right: 60px;
+        }
+    }
 }

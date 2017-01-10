@@ -46,10 +46,6 @@
                     </ul>
                 </nav>
             </div>
-            <ul class="side-nav fixed">
-                <h3>Profiles</h3>
-                <%= render 'profiles/profiles_list' %>
-            </ul>
             <% if current_user %>
             <%= link_to "Log Out", destroy_user_session_path, {class: "right", method: "delete"} %>
             <% end %>
@@ -62,6 +58,24 @@
             <div class="container">
                 <%= yield %>
             </div>
+
+            <!-- modal -->
+            <div id="add-profile-modal" class="modal-container">
+                <div class="modal-content">
+                    <div class="modal-head">
+                        <a href="javascript:void(0);">
+                            <i class="material-icons">close
+                            </i>
+                        </a>
+                        <h3>Add Profile</h3>
+                    </div>
+                    <div class="modal-body">
+                        <%= render 'profiles/form', profile: @user_profile, profile_contact_joins: @profile_contact_joins  %>
+                    </div>
+                    <div class="modal-footer"></div>
+                </div>
+            </div>
+
             <%= javascript_include_tag "https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.8/js/materialize.min.js"%>
         </body>
     </html>

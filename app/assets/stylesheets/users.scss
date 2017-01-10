@@ -2,14 +2,18 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 #show-container {
-   display: -webkit-flex;
-   display: flex;
-   -webkit-flex-direction: row; 
-   flex-direction: row;
-   -webkit-justify-content: space-around;
-   justify-content: space-around;
 }
 
 #contacts-row, #profiles-row {
-	// width: 49%;
+
+}
+.side-nav.fixed h3, .side-nav.fixed a {
+  display: inline-block;
+}
+.side-nav.fixed .add-profile {
+  float: right;
+  margin-top: 28px;
+}
+.side-nav.fixed i {
+  font-size: 2.5rem;
 }

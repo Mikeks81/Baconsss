@@ -1,3 +1,8 @@
+<ul class="side-nav fixed">
+		<h3>Profiles</h3>
+		<a class="add-profile" role="add profile href="javascript:void(0);"><i class="material-icons">playlist_add</i></a>
+		<%= render 'profiles/profiles_list' %>
+</ul>
 <div class="" id="user-name-title">
 	<h3><%= user.email %></h3>
 	<%= link_to user.notifications_active, user_twilios_path(user), {method: 'post', class: "waves-effect waves-light btn"} %>
@@ -13,23 +18,6 @@
 					Contacts
 				</h3>
 				<%= render 'contacts/contacts_list' %>
-			</div>
-		</div>
-	</div>
-
-	<div id="profiles-row" class="row">
-		<div id="profile-box" class="col s12">
-			<div class="" id="add-profile">
-				<h3>Add Profile</h3>
-				<%= render 'profiles/form', profile: @user_profile, profile_contact_joins: @profile_contact_joins  %>
-			</div>
-			<div class="" id="user-profiles">
-				<h3>
-					Profiles
-				</h3>
-				<div>
-					<%= render 'profiles/profiles_list' %>
-				</div>
 			</div>
 		</div>
 	</div>
