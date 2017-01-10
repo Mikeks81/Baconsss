@@ -84,10 +84,11 @@ module Twilio_api
                     last_response = user.last_incoming_message
                     last_response = last_response.created_at unless last_response.nil?
 
-                    incoming_diff = TimeConversion.dt_diff(time_now, last_response, 'h')
+                    # change this back to hours ("h") when ready for production
+                    incoming_diff = TimeConversion.dt_diff(time_now, last_response, 's')
                     puts "respond_in_time = #{respond_in_time}"
                     puts "incoming_diff = #{incoming_diff}"
-                    if incoming_diff >= respond_in_time
+                    if incoming_diff >= respond_in_time_secs
                         Twilio_api.send_msg_to_user_contacts(user)
                         break
                     else

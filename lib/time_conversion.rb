@@ -1,6 +1,6 @@
 module TimeConversion
   def self.hours_to_seconds(hr)
-      # should reall be hr * 60 * 60 for hours
+      # should really be hr * 60 * 60 for hours
       # right now i'm converting minutes to seconds
       hr * 60
   end
