@@ -1,5 +1,10 @@
 $(document).on('turbolinks:load', function() {
+    var activeToggle = $('#user-name-title a');
+    activeToggle.text("Finding your location..."),
+    pos = "";
+
     function initMap() {
+
         // start location is Kensington...
         var startLocation = {
             lat: 39.9809171,
@@ -17,20 +22,21 @@ $(document).on('turbolinks:load', function() {
         // Try HTML5 geolocation.
         if (navigator.geolocation) {
             navigator.geolocation.getCurrentPosition(function(position) {
-                var pos = {
+                 pos = {
                     lat: position.coords.latitude,
                     lng: position.coords.longitude
                 };
 
                 // infoWindow.setPosition(pos);
                 // infoWindow.setContent('Location found.');
-                
+
                 map.setCenter(pos);
                 map.setZoom(15);
                 var marker = new google.maps.Marker({
                     position: pos,
                     map: map
                 });
+                activeToggle.text("Activate Notifications");
             }, function() {
                 // handleLocationError(true, infoWindow, map.getCenter());
                 console.error("There was a problem obtaining location through geolocation service");
@@ -48,6 +54,9 @@ $(document).on('turbolinks:load', function() {
             'Error: The Geolocation service failed.' :
             'Error: Your browser doesn\'t support geolocation.');
     }
+
+    // write function that gets the user ID from somewhere and fires an ajax call to created a row in the Location Table for that user with the lat and long from var pos. 
+
 
     initMap();
 });
