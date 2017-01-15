@@ -46,10 +46,6 @@
                     </ul>
                 </nav>
             </div>
-            <ul class="side-nav fixed">
-                <h3>Profiles</h3>
-                <%= render 'profiles/profiles_list' %>
-            </ul>
             <% if current_user %>
             <%= link_to "Log Out", destroy_user_session_path, {class: "right", method: "delete"} %>
             <% end %>
@@ -59,9 +55,11 @@
             <% if alert %>
             <p class="alert alert-danger"><%= alert %></p>
             <% end %>
-            <div class="container">
+            <div class="">
                 <%= yield %>
             </div>
+
             <%= javascript_include_tag "https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.8/js/materialize.min.js"%>
+            <%= javascript_include_tag "https://maps.googleapis.com/maps/api/js?key=#{ENV['GOOGLE_MAPS']}" %>
         </body>
     </html>

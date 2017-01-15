@@ -1,36 +1,57 @@
-<div class="" id="user-name-title">
-	<h3><%= user.email %></h3>
-	<%= link_to user.notifications_active, user_twilios_path(user), {method: 'post', class: "waves-effect waves-light btn"} %>
-</div>
-<div id="show-container">
-	<div id="contacts-row" class="row">
-		<div id="contacts-box" class="col s12">
-			<h3>Add Contacts</h3>
-			<%= render 'contacts/form', contact: @contact %>
 
-			<div class="" id="user-contacts">
-				<h3>
-					Contacts
-				</h3>
-				<%= render 'contacts/contacts_list' %>
+		<ul class="side-nav fixed">
+			<h3>Profiles</h3>
+			<a class="add-profile" role="add profile" href="javascript:void(0);">
+				<i class="material-icons">playlist_add</i>
+			</a>
+			<%= render 'profiles/profiles_list' %>
+		</ul>
+
+<div class="row">
+	<div id="show-container" class="col s8 offset-s2">
+		<div class="row">
+			<div class="col s12">
+				<div class="" id="user-name-title">
+					<h3><%= user.email %></h3>
+					<%= link_to user.notifications_active, user_twilios_path(user), {method: 'post', class: "waves-effect waves-light btn"} %>
+				</div>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col s12">
+				<div class="maps" id="map"></div>
+			</div>
+		</div>
+
+		<div id="contacts-row" class="row">
+			<div id="contacts-box" class="col s12">
+				<h3>Add Contacts</h3>
+				<%= render 'contacts/form', contact: @contact %>
+
+				<div class="" id="user-contacts">
+					<h3>
+						Contacts
+					</h3>
+					<%= render 'contacts/contacts_list' %>
+				</div>
 			</div>
 		</div>
 	</div>
-
-	<div id="profiles-row" class="row">
-		<div id="profile-box" class="col s12">
-			<div class="" id="add-profile">
+	<!-- modal -->
+	<div id="add-profile-modal" class="modal-container">
+		<div class="modal-content">
+			<div class="modal-head">
+				<a href="javascript:void(0);">
+					<i class="material-icons">close
+					</i>
+				</a>
 				<h3>Add Profile</h3>
+			</div>
+			<div class="modal-body">
 				<%= render 'profiles/form', profile: @user_profile, profile_contact_joins: @profile_contact_joins  %>
 			</div>
-			<div class="" id="user-profiles">
-				<h3>
-					Profiles
-				</h3>
-				<div>
-					<%= render 'profiles/profiles_list' %>
-				</div>
-			</div>
+			<div class="modal-footer"></div>
 		</div>
 	</div>
 </div>
