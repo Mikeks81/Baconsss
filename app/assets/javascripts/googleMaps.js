@@ -55,7 +55,23 @@ $(document).on('turbolinks:load', function() {
             'Error: Your browser doesn\'t support geolocation.');
     }
 
-    // write function that gets the user ID from somewhere and fires an ajax call to created a row in the Location Table for that user with the lat and long from var pos. 
+    // write function that gets the user ID from somewhere and fires an ajax call to created a row in the Location Table for that user with the lat and long from var pos.
+    $('#toggle_notifications').on('click', function(e){
+      var userId = $(this).attr('data-user');
+      var AUTH_TOKEN = $('meta[name=csrf-token]').attr('content');
+      $.ajax({
+        url: "/users/" + userId + "/locations",
+        type: 'post',
+        data: {authenticity_token: AUTH_TOKEN, location: {latitude: pos.lat,
+                           longitude: pos.lng}},
+        success: function(){
+          console.log("success");
+        },
+        error: function(){
+          console.log("fail");
+        }
+      });
+    });
 
 
     initMap();

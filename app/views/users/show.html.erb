@@ -12,8 +12,9 @@
 			<div class="col s12">
 				<div class="" id="user-name-title">
 					<h3><%= user.email %></h3>
-					<%= link_to user.notifications_active, user_twilios_path(user), {method: 'post', class: "waves-effect waves-light btn"} %>
+					<%= link_to user.notifications_active, user_twilios_path(user), method: 'post', class: "waves-effect waves-light btn", id: :toggle_notifications, :data => {user: user.id} %>
 				</div>
+
 			</div>
 		</div>
 
