@@ -1,5 +1,11 @@
 $(document).on('turbolinks:load', function() {
+    var activeToggle = $('#toggle_notifications'),
+        toggleText = activeToggle.text(),
+        pos = "";
+        activeToggle.text("Finding your location...");
+
     function initMap() {
+
         // start location is Kensington...
         var startLocation = {
             lat: 39.9809171,
@@ -17,20 +23,21 @@ $(document).on('turbolinks:load', function() {
         // Try HTML5 geolocation.
         if (navigator.geolocation) {
             navigator.geolocation.getCurrentPosition(function(position) {
-                var pos = {
+                pos = {
                     lat: position.coords.latitude,
                     lng: position.coords.longitude
                 };
 
                 // infoWindow.setPosition(pos);
                 // infoWindow.setContent('Location found.');
-                
+
                 map.setCenter(pos);
                 map.setZoom(15);
                 var marker = new google.maps.Marker({
                     position: pos,
                     map: map
                 });
+                activeToggle.text(toggleText);
             }, function() {
                 // handleLocationError(true, infoWindow, map.getCenter());
                 console.error("There was a problem obtaining location through geolocation service");
@@ -48,6 +55,30 @@ $(document).on('turbolinks:load', function() {
             'Error: The Geolocation service failed.' :
             'Error: Your browser doesn\'t support geolocation.');
     }
+
+    //function that gets the user ID from somewhere and fires an ajax call to created a row in the Location Table for that user with the lat and long from var pos.
+    $('#toggle_notifications').on('click', function(e) {
+        var userId = $(this).attr('data-user');
+        var AUTH_TOKEN = $('meta[name=csrf-token]').attr('content');
+        $.ajax({
+            url: "/users/" + userId + "/locations",
+            type: 'post',
+            data: {
+                authenticity_token: AUTH_TOKEN,
+                location: {
+                    latitude: pos.lat,
+                    longitude: pos.lng
+                }
+            },
+            success: function() {
+                console.log("success");
+            },
+            error: function() {
+                console.log("fail");
+            }
+        });
+    });
+
 
     initMap();
 });

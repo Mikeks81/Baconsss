@@ -8,6 +8,7 @@ class User < ApplicationRecord
     has_many :contacts, dependent: :destroy
     has_many :profiles, dependent: :destroy
     has_many :messages, dependent: :destroy
+    has_many :locations, dependent: :destroy
 
     has_many :phones, dependent: :destroy, inverse_of: :user
     accepts_nested_attributes_for :phones, allow_destroy: true
