@@ -1,15 +1,74 @@
 // Place all the styles related to the Users controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
-#show-container {
-   display: -webkit-flex;
-   display: flex;
-   -webkit-flex-direction: row; 
-   flex-direction: row;
-   -webkit-justify-content: space-around;
-   justify-content: space-around;
+
+.side-nav.fixed {
+    width: 30%;
+    margin-top: 65px;
+    background: #f7efef;
+
+    a, h3 {
+        display: inline-block;
+    }
+
+    i {
+        font-size: 2.5rem;
+    }
+
+    .add-profile {
+        float: right;
+        margin-top: 28px;
+    }
+
+    .add-profile:hover {
+        background-color: transparent !important;
+    }
+
+    .card.horizontal {
+        .switch {
+            width: 44%;
+            position: absolute;
+            right: 0;
+            top: 5px;
+        }
+
+        h6 {
+            display: inline-block;
+            width: 35%;
+        }
+
+        span {
+            font-weight: bold;
+        }
+
+        p {
+            font-size: 13px;
+            margin: 0;
+        }
+
+        #profile_contact {
+            display: inline-block;
+            padding: 0;
+            height: 0;
+            line-height: 0;
+        }
+    }
+
+    .active-profile {
+        background-color: rgba(70, 130, 180, .8) !important;
+        color: white;
+
+        a {
+            color: white !important;
+        }
+
+        .switch label {
+            color: white;
+        }
+    }
 }
 
-#contacts-row, #profiles-row {
-	// width: 49%;
+#map {
+    height: 400px;
+    width: 100%;
 }

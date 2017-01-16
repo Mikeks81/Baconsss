@@ -1,18 +1,21 @@
 <%= form_for [user,profile], html: {class: "col s12"} do |f| %>
 	<div class="input-field col s12">
+		<%= f.text_field :name, class: "", id: :profile_name  %>
+		<%= f.label :name, class: "", for: :profile_name  %>
+	</div>
+	<div class="input-field col s12">
 		<%= f.text_field :text_user_interval, class: "", id: :text_user_interval  %>
 		<%= f.label :text_me_in_hours, class: "", for: :text_user_interval  %>
 	</div>
-	<br>
 	<div class="input-field col s12">
 		<%= f.text_field :response_time, class: "", id: :response_time %>
 		<%= f.label :how_long_without_response_before_alert_contacts, class: "", for: :response_time %>
 	</div>
 	<%= f.fields_for :profile_contact_joins, profile_contact_joins do |joins_f| %>
 		<div class="input-field col s12">
-			<%=	joins_f.select :contact_id, user.contacts.collect { |c| [ c.first_name, c.id ] }, include_blank: true, class: "icons", id: :select_contact_id %>
+			<%=	joins_f.select :contact_id, user.contacts.where.not(id: nil).collect { |c| [ c.first_name, c.id ]}, include_blank: true, class: "icons", id: :select_contact_id %>
 			<%= joins_f.label :add_contact, class: "", for: :select_contact_id %>
 		</div>
 	<% end %>
-	<%= f.submit :add_profile, class: "waves-effect waves-light btn" %>
+	<%= f.submit class: "waves-effect waves-light btn" %>
 <% end %>

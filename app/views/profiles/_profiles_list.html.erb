@@ -1,0 +1,35 @@
+<% user.profiles.order('active DESC').each do |profile| %>
+  <% if profile.id %>
+    <div class="card horizontal <%= 'active-profile' if profile.active  %>">
+      <div class="card-image">
+        <img src="">
+      </div>
+      <div class="card-stacked">
+        <h6><%= profile.name %></h6>
+        <%= form_for([user,profile])  do |f| %>
+        <!-- Switch -->
+        <div class="switch">
+          <label>
+            Inactive
+            <%= f.check_box :active, class: :toggle_active %>
+            <span class="lever"></span>
+            Active
+          </label>
+        </div>
+
+        <% end %>
+        <p><span>We will text you every:</span> <%= profile.text_user_interval %> hour</p>
+        <p><span>If you don't respond in: </span><%= profile.response_time %> hour your contacts will be notified. </p>
+        <p><span>Contacts:</span>
+          <% last_contact = profile.contacts.last %>
+          <% profile.contacts.each do |contact| %>
+             <%= link_to contact.first_name,edit_user_contact_path(user,contact), id: :profile_contact %>
+             <%= "," if contact != last_contact %>
+          <% end %>
+        </p>
+        <p><%= link_to 'Edit', edit_user_profile_path(user,profile), class: :profile_links %></p>
+        <p><%= link_to 'Delete', user_profile_path(user,profile), method: :delete, class: :profile_links %></p>
+      </div>
+    </div>
+  <% end %>
+<%end%>

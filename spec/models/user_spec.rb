@@ -1,13 +1,13 @@
 require 'rails_helper'
 
 RSpec.describe User, type: :model do
-  describe "User Validation" do 
-  	let(:user) { create(:user)}
+  describe "User Validation" do
+  	let(:user) { build(:user)}
   	let(:invalid_user) { build(:user, email: "")}
   	let(:invalid_user_password) { build(:user, password: "")}
-  	let(:invalid_user_password_conf) { build(:user, password_confirmation: "")} 
+  	let(:invalid_user_password_conf) { build(:user, password_confirmation: "")}
 
-  	it 'is valid with email' do 
+  	it 'is valid with email' do
   		expect(user).to be_valid
   	end
 
@@ -34,13 +34,13 @@ RSpec.describe User, type: :model do
   	end
   end
 
-  describe "User Associations" do 
-  	let(:user) { create(:user, :with_contacts, :with_phones)}
+  describe "User Associations" do
+  	let(:user) { create(:user, :with_contacts)}
 
-  	it 'has many contacts' do 
+  	it 'has many contacts' do
   		expect(user.contacts.count).to eq(1)
   	end
-  	it 'has many phones' do 
+  	it 'has many phones' do
   		expect(user.phones.count).to eq(1)
   	end
   end
