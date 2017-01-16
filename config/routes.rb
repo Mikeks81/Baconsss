@@ -1,7 +1,5 @@
 Rails.application.routes.draw do
 
-  get 'locations/create'
-
   authenticated :user do
     root :to => "users#show"
   end

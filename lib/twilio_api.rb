@@ -16,13 +16,13 @@ module Twilio_api
         transmission = 'outgoing'
         message_info = Twilio_api.populate_message_info(to,from, body, transmission, user)
 
-        # message_is_sent = Twilio_api.send_message(message_info['to'], message_info['body'], user)
+        message_is_sent = Twilio_api.send_message(message_info['to'], message_info['body'], user)
 
         if message_is_sent
             puts '@@@@@@@@ SENT 1ST, LOGGING TO DB @@@@@@@@@'
             Message.create(message_info)
             settings = Twilio_api.get_active_profile_settings(user)
-            # Twilio_api.start_interval(user, settings)
+            Twilio_api.start_interval(user, settings)
         end
     end
 
