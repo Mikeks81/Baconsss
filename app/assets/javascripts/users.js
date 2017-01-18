@@ -13,17 +13,21 @@
      if (sideNav) {
          showContainer.className = 'col l7 offset-l4';
      }
-
-
-    //  var animateEtc = function(string){
-    //    var count = 0;
-    //    while (count < 4){
-    //      console.log("running...");
-    //      setTimeout(function(){
-    //       // manip dom here to show manip'd string every second
-    //
-    //      },1000);
-    //    }
-    //  }
-
  });
+
+// animates string into a defined element with trails ...'s
+ var interval;
+ var animateEtc = function(string = "", element = "", boolean) {
+     var count = 1;
+     if (!boolean) {
+         clearInterval(interval);
+         return string;
+     }
+     interval = setInterval(function() {
+         if (count === 4) {
+             count = 1
+         }
+         element.text(string + (".".repeat(count)));
+         count++;
+     }, 500);
+ }
