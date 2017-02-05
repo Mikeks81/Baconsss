@@ -11,11 +11,16 @@
 		<%= f.text_field :response_time, class: "", id: :response_time %>
 		<%= f.label :how_long_without_response_before_alert_contacts, class: "", for: :response_time %>
 	</div>
-	<%= f.fields_for :profile_contact_joins, profile_contact_joins do |joins_f| %>
+	<%= f.fields_for :profile_contact_joins, @profile_contact_joins do |joins_f| %>
 		<div class="input-field col s12">
-			<%=	joins_f.select :contact_id, user.contacts.where.not(id: nil).collect { |c| [ c.first_name, c.id ]}, include_blank: true, class: "icons", id: :select_contact_id %>
+			<%=	joins_f.select :contact_id, options_for_select(user.contacts.where.not(id: nil).collect { |c| [ c.first_name, c.id ]}, joins_f.object.contact_id),{ include_blank: true}, {class: "icons", id: :select_contact_id} %>
+			<%#=	joins_f.select :contact_id, options_for_select(@profile_contact_joins.collect { |c| [ c.contact.first_name, c.contact.id ]},selected: joins_f.object.contact_id),{ include_blank: true}, {class: "icons", id: :select_contact_id} %>
+			<%#= joins_f.text_field :contact_id %>
 			<%= joins_f.label :add_contact, class: "", for: :select_contact_id %>
 		</div>
 	<% end %>
+	<%#= f.fields_for :contacts, profile.contacts do |contact_f| %>
+		<%#= contact_f.text_field profile.contacts.first.first_name %>
+	<%# end %>
 	<%= f.submit class: "waves-effect waves-light btn" %>
 <% end %>

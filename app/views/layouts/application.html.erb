@@ -13,7 +13,7 @@
 
     <body>
         <div class="navbar-fixed">
-            <nav class="fixed" id="application_nav">
+            <nav class="fixed  red accent-4" id="application_nav">
                 <div class="nav-wrapper">
                     <a href="#" class="brand-logo right">Logo</a>
                     <a href="#" data-activates="mobile-demo" class="button-collapse">
@@ -47,7 +47,7 @@
                 </nav>
             </div>
             <% if current_user %>
-            <%= link_to "Log Out", destroy_user_session_path, {class: "right", method: "delete"} %>
+            <%= link_to "Log Out", destroy_user_session_path, {class: "right logout", method: "delete"} %>
             <% end %>
             <% if notice %>
             <p class="alert alert-success"><%= notice %></p>

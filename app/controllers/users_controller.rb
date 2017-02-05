@@ -9,7 +9,7 @@ class UsersController < ApplicationController
     @contact_phone = @contact.phones.build
     @user_phone = user.phones.build
     @user_profile = user.profiles.build
-    @profile_contact_joins = @user_profile.profile_contact_joins.build
+    @profile_contact_joins =  @user_profile.profile_contact_joins.build
   end
 
   def edit

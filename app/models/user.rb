@@ -21,7 +21,7 @@ class User < ApplicationRecord
     end
 
     def is_active?
-        User.find(self.id).active
+        User.find(id).active
     end
 
     def last_outgoing_message

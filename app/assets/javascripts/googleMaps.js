@@ -2,7 +2,9 @@ $(document).on('turbolinks:load', function() {
     var activeToggle = $('#toggle_notifications'),
         toggleText = activeToggle.text(),
         pos = "";
-        activeToggle.text(animateEtc("Finding your location", activeToggle,true));
+        if (activeToggle.text() === 'Activate Notifications'){
+            activeToggle.text(animateEtc("Finding your location", activeToggle,true));
+        }
 
     function initMap() {
 

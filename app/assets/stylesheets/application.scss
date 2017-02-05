@@ -22,7 +22,13 @@
 //     margin-left: 417px !important;
 // }
 // ########### modal sytling ################
-
+.navbar-fixed .fixed {
+    border-bottom: solid 6px white;
+}
+.logout {
+  position: relative;
+  z-index: 996;
+}
 .modal-container {
     position: fixed;
     display: none;

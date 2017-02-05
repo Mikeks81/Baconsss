@@ -31,4 +31,10 @@ $(document).on('turbolinks:load', function() {
       $('.modal-container').hide();
       $('body').removeClass('no-scroll');
     });
+
+    $('window').on('scroll',function(){
+      console.log(event);
+      console.log(this);
+      console.log($(this).scrollTop);
+    });
 });

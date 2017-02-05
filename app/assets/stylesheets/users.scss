@@ -1,11 +1,16 @@
 // Place all the styles related to the Users controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
-
-.side-nav.fixed {
-    width: 30%;
-    margin-top: 65px;
-    background: #f7efef;
+#show-container {
+  padding: 0 !important;
+  #location-activate {
+    padding: 0 30px;
+  }
+}
+.profile-sidbar {
+    background: #eae3e3;
+    height: 100%;
+    padding: 0 !important;
 
     a, h3 {
         display: inline-block;
@@ -24,12 +29,14 @@
         background-color: transparent !important;
     }
 
-    .card.horizontal {
+    .profile-card {
+        position: relative;
+        border-radius: 3px;
+        padding: 10px 20px;
         .switch {
-            width: 44%;
             position: absolute;
-            right: 0;
-            top: 5px;
+            right: 5px;
+            top: 13px;
         }
 
         h6 {
@@ -55,21 +62,25 @@
     }
 
     .active-profile {
-        background-color: rgba(70, 130, 180, .8) !important;
-        color: white;
+        background-color: #FFFFFF;
 
         a {
-            color: white !important;
+            // color: white !important;
         }
 
         .switch label {
-            color: white;
+            // color: white;
+        }
+        .switch label input[type=checkbox]:checked+.lever,
+        .switch label input[type=checkbox]:checked+.lever:after{
+          background-color: #ef9a9a;
         }
     }
 }
 
 #toggle_notifications{
   min-width: 100%;
+  margin-bottom: 20px;
 }
 
 #map {
