@@ -32,9 +32,14 @@ $(document).on('turbolinks:load', function() {
       $('body').removeClass('no-scroll');
     });
 
-    $('window').on('scroll',function(){
-      console.log(event);
-      console.log(this);
-      console.log($(this).scrollTop);
+    $('.hamburger').on('click', function() {
+      const isOpen = $('.hamburger').hasClass('open')
+      if(!isOpen)
+        $('body, .hamburger, .side-navi-fade,.side-navi')
+        .addClass('open');
+      else {
+        $('body, .hamburger, .side-navi-fade,.side-navi')
+        .removeClass('open')
+      }
     });
 });

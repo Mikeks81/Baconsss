@@ -12,40 +12,15 @@
     </head>
 
     <body>
-        <div class="navbar-fixed">
-            <nav class="fixed  red accent-4" id="application_nav">
-                <div class="nav-wrapper">
-                    <a href="#" class="brand-logo right">Logo</a>
-                    <a href="#" data-activates="mobile-demo" class="button-collapse">
-                        <i class="material-icons">menu</i>
-                    </a>
-                    <ul id="nav-mobile" class="left hide-on-med-and-down">
-                        <li>
-                            <%= link_to "Home", root_path %>
-                        </li>
-                        <li>
-                            <%= link_to "Edit User", edit_user_path(current_user) %>
-                        </li>
-                        <li>
-                            <a href="#">hello</a>
-                        </li>
-                        <li>
-                            <a href="#">hello</a>
-                        </li>
-                    </ul>
-                    <ul class="side-nav" id="mobile-demo">
-                        <li>
-                            <a href="sass.html">Sass</a>
-                        </li>
-                        <li>
-                            <a href="badges.html">Components</a>
-                        </li>
-                        <li>
-                            <a href="collapsible.html">JavaScript</a>
-                        </li>
-                    </ul>
-                </nav>
-            </div>
+        <%= render 'layouts/side-nav' %>
+        <nav class="" id="application_nav">
+          <div class="hamburger">
+            <span></span>
+            <span></span>
+            <span></span>
+          </div>
+        </nav>
+
             <% if current_user %>
             <%= link_to "Log Out", destroy_user_session_path, {class: "right logout", method: "delete"} %>
             <% end %>
