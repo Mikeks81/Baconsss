@@ -16,12 +16,25 @@
  body.open {
      overflow: hidden;
  }
+ body {
+  //  background-color: #f4f0e3;
+ }
 
 // .container {
 //     width: 70% !important;
 //     margin-left: 417px !important;
 // }
 // ########### modal sytling ################
+nav {
+  background-color: #FFFFFF !important;
+  h4 {
+    padding: 0;
+    float: right;
+    color: #BB3C3C;
+    margin-right: 15px;
+  }
+}
+
 .hamburger {
   width: 40px;
   height: 30px;
@@ -37,12 +50,15 @@
     margin: 4px 0;
     display: block;
     // border-radius: 5px;
-    background-color: white;
+    background-color: #BB3C3C;
     transition: .5s ease-in-out;
   }
 }
 
 .hamburger.open {
+  span {
+    background-color: #BB3C3C;
+  }
   span:nth-child(1) {
     width: 50%;
   }
@@ -60,7 +76,7 @@
 }
 .side-navi-fade.open {
   visibility: visible;
-  background-color: rgba(255,255,255, .7);
+  background-color: rgba(0,0,0, .5);
 }
 
 .side-navi {
@@ -69,26 +85,28 @@
   left: -325px;
   width: 325px;
   min-height: 100%;
-  background-color: #ccc;
+  background-color: #f7f7f7;
   z-index: 999;
+  overflow-y: scroll;
   transition: .5s ease-in-out;
   ul {
     margin-top: 90px;
   }
   li {
-    border-bottom: solid 1px white;
+    border-bottom: solid 2px #ffffff;
     padding: 20px 0;
-    transition: .1s ease-in-out;
+    transition: .5s ease-in-out;
     a, a:visited {
-      color: white;
+      color: #888;
       padding: 20px 230px 20px 20px;
       transition: .1s ease-in-out;
     }
   }
   li:hover {
-    background-color: white;
+    background-color: #FFFFFF;
+    // border-bottom: solid 2px white;
     a:hover, a:focus {
-      color: #888;
+
     }
   }
 }

@@ -3,7 +3,7 @@
 		<div class="row">
 			<div class="col l9 s12">
 				<div class="" id="location-activate">
-					<%= link_to user.notifications_active, user_twilios_path(user), method: 'post', class: "waves-effect waves-light btn deep-orange accent-3", id: :toggle_notifications, :data => {user: user.id} %>
+					<%= link_to user.notifications_active, user_twilios_path(user), method: 'post', class: "waves-effect waves-light btn", id: :toggle_notifications, :data => {user: user.id} %>
 					<div class="maps" id="map"></div>
 				</div>
 			</div>

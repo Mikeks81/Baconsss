@@ -8,9 +8,10 @@
   }
 }
 .profile-sidbar {
-    background: #ededed;
+    background: #f7f7f7;
     height: 100%;
     padding: 0 !important;
+    // box-shadow: 6px 0px 10px 3px rgba(204, 204, 204, .7);
     ul {
       margin: 0;
     }
@@ -71,9 +72,9 @@
 
     .active-profile {
         background-color: #FFFFFF;
-        border-left: none;
         border-top: solid 1px #bfbfbf;
         border-bottom: solid 1px #bfbfbf;
+        // box-shadow: 7px 0px 10px 3px rgba(204, 204, 204, .7);
 
         a {
             // color: white !important;
@@ -92,6 +93,8 @@
 #toggle_notifications{
   min-width: 100%;
   margin-bottom: 20px;
+  background-color: #BB3C3C;
+  color: #FFFFFF;
 }
 
 #map {
