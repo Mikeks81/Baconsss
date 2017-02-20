@@ -8,13 +8,18 @@
         <%= link_to "Edit User", edit_user_path(current_user) %>
       </li>
       <li>
-        <a href="#">HELLO</a>
+        <%= link_to 'Contacts', user_contacts_path(current_user) %>
       </li>
       <li>
         <a href="#">HELLO</a>
       </li>
       <li>
         <a href="#">HELLO</a>
+      </li>
+      <li>
+        <% if current_user %>
+        <%= link_to "Log Out", destroy_user_session_path, {class: "logout", method: "delete"} %>
+        <% end %>
       </li>
     </ul>
   </div>

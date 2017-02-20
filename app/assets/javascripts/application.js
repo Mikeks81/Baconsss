@@ -23,7 +23,7 @@ $(document).on('turbolinks:load', function() {
     // open profile modal
     $('.add-profile').on('click',function(){
       $('#add-profile-modal').show();
-      $('body').addClass('no-scroll');
+      $('body').addClass('open');
     });
 
     // close modal
@@ -32,14 +32,9 @@ $(document).on('turbolinks:load', function() {
       $('body').removeClass('no-scroll');
     });
 
-    $('.hamburger').on('click', function() {
-      const isOpen = $('.hamburger').hasClass('open')
-      if(!isOpen)
-        $('body, .hamburger, .side-navi-fade,.side-navi')
-        .addClass('open');
-      else {
-        $('body, .hamburger, .side-navi-fade,.side-navi')
-        .removeClass('open')
-      }
+    $('.hamburger').on('click', function(event) {
+      console.log(event.target)
+      $('body, .hamburger, .side-navi-fade,.side-navi')
+      .toggleClass('open')
     });
 });

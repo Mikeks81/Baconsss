@@ -5,7 +5,6 @@
 
      // when profile is toggled this submits form.
      $(".toggle_active").on("change", function(e) {
-         console.log(e.target.checked);
          $(this.closest("form")).submit();
      });
 
