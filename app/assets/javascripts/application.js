@@ -32,8 +32,7 @@ $(document).on('turbolinks:load', function() {
       $('body').removeClass('no-scroll');
     });
 
-    $('.hamburger').on('click', function(event) {
-      console.log(event.target)
+    $('.hamburger, .side-navi-fade').on('click', function(event) {
       $('body, .hamburger, .side-navi-fade,.side-navi')
       .toggleClass('open')
     });

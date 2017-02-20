@@ -1,6 +1,6 @@
 $(document).on('turbolinks:load', function() {
     if  (!$('.users.show').length > 0) {
-      return false
+      return
     }
     var activeToggle = $('#toggle_notifications'),
         toggleText = activeToggle.text(),
