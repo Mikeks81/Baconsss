@@ -132,6 +132,7 @@ nav {
     left: 0;
     background-color: rgba(2, 2, 2, .23);
     z-index: 999998;
+    transition: .5s ease-in-out;
 
     .modal-content {
         position: relative;
@@ -143,6 +144,7 @@ nav {
         border-radius: 2px;
         box-shadow: 0 0 10px 0.5px rgba(0, 0, 0, 0.43);
         padding: 30px 60px 40px;
+        transition: .5s ease-in-out;
 
         .modal-head a {
             position: absolute;

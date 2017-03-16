@@ -30,6 +30,8 @@ gem 'jbuilder', '~> 2.5'
 gem 'devise'
 # twilio for sms
 gem 'twilio-ruby'
+# timer gem
+gem 'timers', '~> 4.0', '>= 4.0.1'
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
