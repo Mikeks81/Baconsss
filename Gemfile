@@ -33,6 +33,10 @@ gem 'devise'
 gem 'twilio-ruby'
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
+# for background processes
+gem 'sidekiq'
+# for it's dashboard
+gem 'sinatra', '>= 1.3.0', :require => nil
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console

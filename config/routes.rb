@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  require 'sidekiq/web'
 
   authenticated :user do
     root :to => "users#show"
@@ -15,4 +16,6 @@ Rails.application.routes.draw do
     resources :twilios, only: [:index, :create, :update, :destroy]
     resources :locations, only: [:create]
 	end
+
+  mount Sidekiq::Web => '/sidekiq'
 end

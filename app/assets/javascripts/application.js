@@ -17,9 +17,9 @@
 
 $(document).on('turbolinks:load', function() {
     // materialize side nav
-    $(".button-collapse").sideNav();
+    // $(".button-collapse").sideNav();
     // materialize select drop down
-    $('select').material_select();
+    // $('select').material_select();
     // open profile modal
     $('.add-profile').on('click',function(){
       $('#add-profile-modal').show();

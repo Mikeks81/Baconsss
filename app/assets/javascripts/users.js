@@ -1,7 +1,6 @@
  $(document).on('turbolinks:load', function() {
      var showContainer = document.getElementById('show-container');
 
-     $(".button-collapse").sideNav();
 
      // when profile is toggled this submits form.
      $(".toggle_active").on("change", function(e) {
