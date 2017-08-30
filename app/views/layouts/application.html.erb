@@ -1,34 +1,34 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <title>Bacon</title>
-        <%= csrf_meta_tags %>
+  <head>
+      <title>Bacon</title>
+      <%= csrf_meta_tags %>
 
-        <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
-        <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
-        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    </head>
+      <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+      <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  </head>
 
-    <body>
-        <%= render 'layouts/side-nav' %>
-        <nav class="" id="application_nav">
-          <div class="hamburger">
-            <span></span>
-            <span></span>
-            <span></span>
-          </div>
-          <h4>Beacon</h4>
-        </nav>
-            <% if notice %>
-            <p class="alert alert-success"><%= notice %></p>
-            <% end %>
-            <% if alert %>
-            <p class="alert alert-danger"><%= alert %></p>
-            <% end %>
-            <div>
-                <%= yield %>
-            </div>
-            <%= javascript_include_tag "https://maps.googleapis.com/maps/api/js?key=#{ENV['GOOGLE_MAPS']}" %>
-            <%= javascript_pack_tag 'hello_react' %>
-        </body>
-    </html>
+  <body>
+    <%= render 'layouts/side-nav' %>
+    <nav class="" id="application_nav">
+      <div class="hamburger">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+      <h4>Beacon</h4>
+    </nav>
+    <% if notice %>
+    <p class="alert alert-success"><%= notice %></p>
+    <% end %>
+    <% if alert %>
+    <p class="alert alert-danger"><%= alert %></p>
+    <% end %>
+    <div>
+        <%= yield %>
+    </div>
+    <%= javascript_include_tag "https://maps.googleapis.com/maps/api/js?key=#{ENV['GOOGLE_MAPS']}" %>
+    <%= javascript_pack_tag 'hello_react' %>
+  </body>
+</html>
