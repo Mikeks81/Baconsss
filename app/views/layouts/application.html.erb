@@ -11,14 +11,18 @@
 
   <body>
     <%= render 'layouts/side-nav' %>
-    <nav class="" id="application_nav">
+    <div class='navigation'>
+      <%= javascript_pack_tag 'components/navbar' %>
+    </div>
+
+    <!-- <nav class="" id="application_nav">
       <div class="hamburger">
         <span></span>
         <span></span>
         <span></span>
       </div>
       <h4>Beacon</h4>
-    </nav>
+    </nav> -->
     <% if notice %>
     <p class="alert alert-success"><%= notice %></p>
     <% end %>
