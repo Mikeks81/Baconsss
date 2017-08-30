@@ -10,7 +10,17 @@
   </head>
 
   <body>
-    <%= render 'layouts/side-nav' %>
+    <!-- unfortunatly in order to pass props to react from the view without using a react rails gem you need to create a dive with data attr's attached and pluck it out in the react component -->
+    <%= content_tag :div,
+        id: 'navigation',
+        data: {
+          root_path: root_path,
+          edit_user_path: edit_user_path(current_user),
+          user_contacts_path: user_contacts_path(current_user),
+          destroy_user_session_path: destroy_user_session_path,
+          current_user: current_user
+        }.to_json do %>
+    <% end %>
     <div class='navigation'>
       <%= javascript_pack_tag 'components/navbar' %>
     </div>
