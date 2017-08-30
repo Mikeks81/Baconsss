@@ -4,7 +4,7 @@ class Profile < ApplicationRecord
   has_many :profile_contact_joins, dependent: :destroy, inverse_of: :profile
   has_many :contacts, through: :profile_contact_joins
 
-  accepts_nested_attributes_for :profile_contact_joins
+  accepts_nested_attributes_for :profile_contact_joins, allow_destroy: true
   validates_presence_of :profile_contact_joins
 
 

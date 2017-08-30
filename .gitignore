@@ -18,3 +18,5 @@
 
 # Ignore application.yml that i'm using for ENV val's
 config/application.yml
+/public/packs
+/node_modules

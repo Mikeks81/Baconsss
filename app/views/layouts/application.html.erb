@@ -1,65 +1,48 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <title>Bacon</title>
-        <%= csrf_meta_tags %>
+  <head>
+      <title>Bacon</title>
+      <%= csrf_meta_tags %>
 
-        <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
-        <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
-        <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-        <%= stylesheet_link_tag "https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.8/css/materialize.min.css"%>
-        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    </head>
+      <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+      <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  </head>
 
-    <body>
-        <div class="navbar-fixed">
-            <nav class="fixed" id="application_nav">
-                <div class="nav-wrapper">
-                    <a href="#" class="brand-logo right">Logo</a>
-                    <a href="#" data-activates="mobile-demo" class="button-collapse">
-                        <i class="material-icons">menu</i>
-                    </a>
-                    <ul id="nav-mobile" class="left hide-on-med-and-down">
-                        <li>
-                            <%= link_to "Home", root_path %>
-                        </li>
-                        <li>
-                            <%= link_to "Edit User", edit_user_path(current_user) %>
-                        </li>
-                        <li>
-                            <a href="#">hello</a>
-                        </li>
-                        <li>
-                            <a href="#">hello</a>
-                        </li>
-                    </ul>
-                    <ul class="side-nav" id="mobile-demo">
-                        <li>
-                            <a href="sass.html">Sass</a>
-                        </li>
-                        <li>
-                            <a href="badges.html">Components</a>
-                        </li>
-                        <li>
-                            <a href="collapsible.html">JavaScript</a>
-                        </li>
-                    </ul>
-                </nav>
-            </div>
-            <% if current_user %>
-            <%= link_to "Log Out", destroy_user_session_path, {class: "right", method: "delete"} %>
-            <% end %>
-            <% if notice %>
-            <p class="alert alert-success"><%= notice %></p>
-            <% end %>
-            <% if alert %>
-            <p class="alert alert-danger"><%= alert %></p>
-            <% end %>
-            <div class="">
-                <%= yield %>
-            </div>
+  <body>
+    <!-- unfortunatly in order to pass props to react from the view without using a react rails gem you need to create a dive with data attr's attached and pluck it out in the react component -->
+    <%= content_tag :div,
+        id: 'navigation',
+        data: {
+          root_path: root_path,
+          edit_user_path: edit_user_path(current_user),
+          user_contacts_path: user_contacts_path(current_user),
+          destroy_user_session_path: destroy_user_session_path,
+          current_user: current_user
+        }.to_json do %>
+    <% end %>
+    <div class='navigation'>
+      <%= javascript_pack_tag 'components/navbar' %>
+    </div>
 
-            <%= javascript_include_tag "https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.8/js/materialize.min.js"%>
-            <%= javascript_include_tag "https://maps.googleapis.com/maps/api/js?key=#{ENV['GOOGLE_MAPS']}" %>
-        </body>
-    </html>
+    <!-- <nav class="" id="application_nav">
+      <div class="hamburger">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+      <h4>Beacon</h4>
+    </nav> -->
+    <% if notice %>
+    <p class="alert alert-success"><%= notice %></p>
+    <% end %>
+    <% if alert %>
+    <p class="alert alert-danger"><%= alert %></p>
+    <% end %>
+    <div>
+        <%= yield %>
+    </div>
+    <%= javascript_include_tag "https://maps.googleapis.com/maps/api/js?key=#{ENV['GOOGLE_MAPS']}" %>
+    <%= javascript_pack_tag 'hello_react' %>
+  </body>
+</html>

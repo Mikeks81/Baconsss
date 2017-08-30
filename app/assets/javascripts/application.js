@@ -12,23 +12,29 @@
 //
 //= require jquery
 //= require jquery_ujs
+//= require bootstrap/dist/js/bootstrap
 //= require turbolinks
 //= require_tree .
 
 $(document).on('turbolinks:load', function() {
     // materialize side nav
-    $(".button-collapse").sideNav();
+    // $(".button-collapse").sideNav();
     // materialize select drop down
-    $('select').material_select();
+    // $('select').material_select();
     // open profile modal
     $('.add-profile').on('click',function(){
       $('#add-profile-modal').show();
-      $('body').addClass('no-scroll');
+      $('body').addClass('open');
     });
 
     // close modal
     $('.modal-head a').on('click', function(){
       $('.modal-container').hide();
       $('body').removeClass('no-scroll');
+    });
+
+    $('.hamburger, .side-navi-fade').on('click', function(event) {
+      $('body, .hamburger, .side-navi-fade,.side-navi')
+      .toggleClass('open')
     });
 });

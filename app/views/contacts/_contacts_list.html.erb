@@ -2,19 +2,19 @@
   <% if user_contact.id %>
     <div class="card horizontal">
       <div class="card-image">
-        <img src="">
+        <img src="http://placehold.it/150x150">
       </div>
       <div class="card-stacked">
-        <p><%= user_contact.first_name %> <%= user_contact.last_name%></p>
-        <p><%= user_contact.nickname %></p>
-        <p><%= user_contact.relationship %></p>
-        <p><%= user_contact.email %></p>
+        <p>Name: <%= user_contact.first_name %> <%= user_contact.last_name%></p>
+        <p>Nickame: <%= user_contact.nickname %></p>
+        <p>Relationship: <%= user_contact.relationship %></p>
+        <p>Email: <%= user_contact.email %></p>
         <% user_contact.phones.each do |phone| %>
-          <p><%= phone.phone_type %></p>
-          <p><%= phone.phone_number %></p>
+          <p>Phone type: <%= phone.phone_type %></p>
+          <p>Phone number: <%= phone.phone_number %></p>
         <% end %>
-        <p><%= link_to 'Edit', edit_user_contact_path(user,user_contact) %></p>
-        <p><%= link_to 'Delete', user_contact_path(user,user_contact), method: :delete %></p>
+        <span><%= link_to 'Edit', edit_user_contact_path(user,user_contact) %></span>
+        <span><%= link_to 'Delete', user_contact_path(user,user_contact), method: :delete %></span>
       </div>
     </div>
   <% end %>

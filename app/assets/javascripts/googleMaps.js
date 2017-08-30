@@ -1,8 +1,13 @@
 $(document).on('turbolinks:load', function() {
+    if  (!$('.users.show').length > 0) {
+      return
+    }
     var activeToggle = $('#toggle_notifications'),
         toggleText = activeToggle.text(),
         pos = "";
-        activeToggle.text("Finding your location...");
+        if (activeToggle.text() === 'Activate Notifications'){
+            activeToggle.text(animateEtc("Finding your location", activeToggle,true));
+        }
 
     function initMap() {
 
@@ -37,7 +42,7 @@ $(document).on('turbolinks:load', function() {
                     position: pos,
                     map: map
                 });
-                activeToggle.text(toggleText);
+                activeToggle.text(animateEtc(toggleText, activeToggle, false));
             }, function() {
                 // handleLocationError(true, infoWindow, map.getCenter());
                 console.error("There was a problem obtaining location through geolocation service");
